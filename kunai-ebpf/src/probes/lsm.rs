@@ -1,18 +1,8 @@
-use core::ffi::{c_void, c_long, c_char};
+use core::ffi::c_void;
 
-use aya_ebpf::{bindings::path, bpf_printk, cty::c_int, maps::PerCpuArray, programs::LsmContext};
-
-use crate::vmlinux::file;
+use aya_ebpf::{bpf_printk, cty::c_int, maps::PerCpuArray, programs::LsmContext};
 
 use super::*;
-
-// use vmlinux::file;
-
-
-#[repr(C)]
-struct Path {
-    path: [u8; MAX_PATH_LEN]
-}
 
 #[map]
 static mut PATH_BUF: PerCpuArray<Path> = PerCpuArray::with_max_entries(1, 0);
@@ -45,36 +35,75 @@ pub fn lsm_file_open(ctx: LsmContext) -> i32 {
 }
 
 #[inline(always)]
-pub fn my_bpf_d_path(path: *mut path, buf: &mut [u8]) -> Result<usize, c_long> {
-    let ret = unsafe { aya_ebpf::helpers::bpf_d_path(path, buf.as_mut_ptr() as *mut c_char, buf.len() as u32) };
-    if ret < 0 {
-        return Err(ret);
-    }
-
-    Ok(ret as usize)
-}
-
-#[inline(always)]
 unsafe fn try_lsm_security_file_open(ctx: &LsmContext) -> Result<LsmStatus, ProbeError> {
-    let buf = unsafe {
-        let buf_ptr = PATH_BUF.get_ptr_mut(0).ok_or(0).unwrap();
-        &mut *buf_ptr
-    };
+    let file = co_re::file::from_ptr(ctx.arg::<*const c_void>(0) as *const _);
+    let path = core_read_kernel!(file, f_path)?;
 
-    let p = {
-        let f: *const file = ctx.arg(0);
-        bpf_printk!(b"file_open: file: %s", f);
-        let p = unsafe { &(*f).f_path as *const _ as *mut path };
-        let len = my_bpf_d_path(p, &mut buf.path).map_err(|_| 0).unwrap();
-        if len >= 64 { // path_len = 64
-            return Ok(LsmStatus::Block);
+    alloc::init()?;
+    let buf = alloc::alloc_zero::<Path>()?;
+    buf.core_resolve(&path, 128)?;
+
+    // bpf_printk!(b"len: %d, depth: %d", buf.len(), buf.depth());
+
+    let mut p = Path::default();
+    let s = "/.dockerenv";
+    let len = p.copy_from_str(s, Mode::Append).unwrap();
+    if len == buf.len() {
+        // bpf_printk!(b"path len=%d", len);
+
+        for i in 0..100 { // core::mem::size_of::<Path>() {
+            if i == buf.len() {
+                break;
+            }
+     
+            let b = buf.get_byte(i)?;
+            bpf_printk!(b"%c", b);
         }
-        core::str::from_utf8_unchecked(&buf.path[..len])
+    }
+
+    for i in 0..100 { // core::mem::size_of::<Path>() {
+       if i == buf.len() {
+           break;
+       }
+
+       let _b = buf.get_byte(i)?;
+       // bpf_printk!(b"%c", b);
+   }
+
+    if buf.starts_with("/.dockerenv") {
+        bpf_printk!(b"file_open /.dockerenv");
+        // return Ok(LsmStatus::Block)
     };
 
-    if p.starts_with("/.dockerenv") {
-        return Ok(LsmStatus::Block)
-    }
+    // let path = p.as_ptr();
+
+    // let buf = unsafe {
+    //     let buf_ptr = PATH_BUF.get_ptr_mut(0).ok_or(0).unwrap();
+    //     &mut *buf_ptr
+    // };
+
+    // let f: *const file = ctx.arg(0);
+    // let p = &(*f).f_path;
+    // // let aya_path = unsafe { p as *mut aya_path };
+
+    // let bpf_ptr = unsafe {
+    //     PATH_BUF.get_ptr_mut(0).ok_or(0).unwrap()
+    // };
+    // let b: &mut Path = unsafe { &mut *bpf_ptr };
+    
+    // let len = unsafe { 
+    //     bpf_d_path(
+    //         p as *mut _, 
+    //         buf.path.as_mut_ptr() as *mut c_char, 
+    //         buf.path.len() as u32
+    //     ) 
+    // } as usize;
+
+    // let s = core::str::from_utf8_unchecked(&buf.path[..len]);
+    // if s.starts_with("tmp") {
+    //     bpf_printk!(b"detect");
+    //     return Ok(LsmStatus::Block)
+    // }
 
     Ok(LsmStatus::Continue(0))
 }
