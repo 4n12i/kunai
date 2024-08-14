@@ -65,7 +65,7 @@ impl Default for Config {
         let mut events = vec![];
         for v in bpf_events::Type::variants() {
             // some events get disabled by default because there are too many
-            let en = !matches!(v, bpf_events::Type::Read | bpf_events::Type::Write);
+            let en = !matches!(v, bpf_events::Type::Read | bpf_events::Type::Write | bpf_events::Type::Open);
 
             if v.is_configurable() {
                 events.push(Event {

@@ -14,15 +14,14 @@ use kunai::events::{
     BpfProgLoadData, BpfProgTypeInfo, BpfSocketFilterData, CloneData, ConnectData, DnsQueryData,
     ExecveData, ExitData, FileRenameData, FilterInfo, InitModuleData, KillData, KunaiEvent,
     MmapExecData, MprotectData, NetworkInfo, PrctlData, RWData, ScanResult, SendDataData,
-    SocketInfo, TargetTask, UnlinkData, UserEvent,
+    SocketInfo, TargetTask, UnlinkData, UserEvent, OpenData
 };
 use kunai::info::{AdditionalInfo, StdEventInfo, TaskKey};
 use kunai::ioc::IoC;
 use kunai::util::uname::Utsname;
 use kunai::{cache, util};
 use kunai_common::bpf_events::{
-    self, error, event, mut_event, EncodedEvent, Event, PrctlOption, Signal, Type,
-    MAX_BPF_EVENT_SIZE,
+    self, error, event, mut_event, EncodedEvent, Event, PrctlOption, Signal, Type, MAX_BPF_EVENT_SIZE
 };
 use kunai_common::config::{BpfConfig, Filter};
 use kunai_common::{inspect_err, kernel};
@@ -753,6 +752,20 @@ impl EventConsumer {
     }
 
     #[inline]
+    fn open_event(&mut self, info: StdEventInfo, event: &bpf_events::ConfigEvent) -> UserEvent<OpenData> {
+        let (exe, command_line) = self.get_exe_and_command_line(&info);
+
+        let data = OpenData {
+            ancestors: self.get_ancestors_string(&info), 
+            command_line, 
+            exe: exe.into(), 
+            path: event.data.path.to_path_buf(), 
+        };
+
+        UserEvent::new(data, info)
+    }
+
+    #[inline]
     fn unlink_event(
         &mut self,
         info: StdEventInfo,
@@ -1367,6 +1380,14 @@ impl EventConsumer {
 
             Type::Error => panic!("error events should be processed earlier"),
             Type::SyscoreResume => { /*  just ignore it */ }
+
+            Type::Open => match event!(enc_event) {
+                Ok(e) => {
+                    let mut e = self.open_event(std_info, e);
+                    self.scan_and_print(&mut e);
+                }
+                Err(e) => error!("failed to decode {} event: {:?}", etype, e), 
+            }
         }
     }
 }
@@ -2114,6 +2135,8 @@ impl Command {
                         | Type::TaskSched
                         | Type::SyscoreResume
                         | Type::Max => {}
+
+                        Type::Open => unimplemented!(), 
                     }
                 }
             }

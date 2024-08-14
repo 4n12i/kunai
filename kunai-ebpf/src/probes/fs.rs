@@ -66,6 +66,35 @@ unsafe fn file_key(file: &co_re::file) -> ProbeResult<FileKey> {
     Ok(FileKey(task_id, ino))
 }
 
+#[kprobe(function = "vfs_open")]
+pub fn fs_vfs_open(ctx: ProbeContext) -> u32 {
+    match unsafe { try_vfs_open(&ctx) } {
+        Ok(_) => errors::BPF_PROG_SUCCESS, 
+        Err(s) => {
+            error!(&ctx, s); 
+            errors::BPF_PROG_FAILURE
+        }
+    }
+}
+
+unsafe fn try_vfs_open(ctx: &ProbeContext) -> ProbeResult<()> {
+    let path = co_re::path::from_ptr(ctx.arg(0).ok_or(ProbeError::KProbeArgFailure)?);
+
+    alloc::init()?;
+    let event = alloc::alloc_zero::<OpenEvent>()?;
+
+    ignore_result!(inspect_err!(event.data.path.core_resolve(&path, MAX_PATH_DEPTH), |e: &path::Error| warn!(ctx, "failed to resolve filename", (*e).into())));
+
+    if event.data.path.len() == 1 || event.data.path.starts_with("/proc/") {
+        return Ok(())
+    }
+    
+    event.init_from_current_task(Type::Open)?;
+    pipe_event(ctx, event);
+
+    Ok(())
+}
+
 #[kprobe(function = "vfs_read")]
 pub fn fs_vfs_read(ctx: ProbeContext) -> u32 {
     match unsafe { try_vfs_read(&ctx) } {

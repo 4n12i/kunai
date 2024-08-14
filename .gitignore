@@ -6,3 +6,7 @@ debug/
 target/
 .vim
 cache
+
+logs/
+rules/
+

@@ -113,6 +113,9 @@ pub enum Type {
     #[str("file_unlink")]
     FileUnlink,
 
+    #[str("open")]
+    Open, 
+
     // Materialize end of possible events
     #[str("end_event")]
     EndEvents = 1000,

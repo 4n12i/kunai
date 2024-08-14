@@ -83,6 +83,8 @@ const fn max_bpf_event_size() -> usize {
             Type::Error => ErrorEvent::size_of(),
             Type::SyscoreResume => SysCoreResumeEvent::size_of(),
             // never handle _ pattern otherwise this function loses all interest
+
+            Type::Open => OpenEvent::size_of(), 
         };
         if size > max {
             max = size;

@@ -656,6 +656,18 @@ impl IocGetter for RWData {
 }
 
 def_user_data!(
+    pub struct OpenData {
+        pub path: PathBuf,
+    }
+);
+
+impl IocGetter for OpenData {
+    fn iocs(&mut self) -> Vec<Cow<'_, str>> {
+        vec![self.exe.file.to_string_lossy(), self.path.to_string_lossy()]
+    }
+}
+
+def_user_data!(
     pub struct UnlinkData {
         pub path: PathBuf,
         pub success: bool,
