@@ -1,0 +1,195 @@
+execve("/usr/bin/sudo", ["sudo", "cat", "/.dockerenv"], 0x7ffe160e9380 /* 58 vars */) = 0
+access("/etc/suid-debug", F_OK)         = -1 ENOENT (No such file or directory)
+brk(NULL)                               = 0x58cecf4fe000
+arch_prctl(0x3001 /* ARCH_??? */, 0x7fff1500eb90) = -1 EINVAL (Invalid argument)
+fcntl(0, F_GETFD)                       = 0
+fcntl(1, F_GETFD)                       = 0
+fcntl(2, F_GETFD)                       = 0
+access("/etc/suid-debug", F_OK)         = -1 ENOENT (No such file or directory)
+mmap(NULL, 8192, PROT_READ|PROT_WRITE, MAP_PRIVATE|MAP_ANONYMOUS, -1, 0) = 0x716d1d259000
+access("/etc/ld.so.preload", R_OK)      = -1 ENOENT (No such file or directory)
+openat(AT_FDCWD, "/usr/libexec/sudo/glibc-hwcaps/x86-64-v4/libaudit.so.1", O_RDONLY|O_CLOEXEC) = -1 ENOENT (No such file or directory)
+newfstatat(AT_FDCWD, "/usr/libexec/sudo/glibc-hwcaps/x86-64-v4", 0x7fff1500ddb0, 0) = -1 ENOENT (No such file or directory)
+openat(AT_FDCWD, "/usr/libexec/sudo/glibc-hwcaps/x86-64-v3/libaudit.so.1", O_RDONLY|O_CLOEXEC) = -1 ENOENT (No such file or directory)
+newfstatat(AT_FDCWD, "/usr/libexec/sudo/glibc-hwcaps/x86-64-v3", 0x7fff1500ddb0, 0) = -1 ENOENT (No such file or directory)
+openat(AT_FDCWD, "/usr/libexec/sudo/glibc-hwcaps/x86-64-v2/libaudit.so.1", O_RDONLY|O_CLOEXEC) = -1 ENOENT (No such file or directory)
+newfstatat(AT_FDCWD, "/usr/libexec/sudo/glibc-hwcaps/x86-64-v2", 0x7fff1500ddb0, 0) = -1 ENOENT (No such file or directory)
+openat(AT_FDCWD, "/usr/libexec/sudo/tls/x86_64/x86_64/libaudit.so.1", O_RDONLY|O_CLOEXEC) = -1 ENOENT (No such file or directory)
+newfstatat(AT_FDCWD, "/usr/libexec/sudo/tls/x86_64/x86_64", 0x7fff1500ddb0, 0) = -1 ENOENT (No such file or directory)
+openat(AT_FDCWD, "/usr/libexec/sudo/tls/x86_64/libaudit.so.1", O_RDONLY|O_CLOEXEC) = -1 ENOENT (No such file or directory)
+newfstatat(AT_FDCWD, "/usr/libexec/sudo/tls/x86_64", 0x7fff1500ddb0, 0) = -1 ENOENT (No such file or directory)
+openat(AT_FDCWD, "/usr/libexec/sudo/tls/x86_64/libaudit.so.1", O_RDONLY|O_CLOEXEC) = -1 ENOENT (No such file or directory)
+newfstatat(AT_FDCWD, "/usr/libexec/sudo/tls/x86_64", 0x7fff1500ddb0, 0) = -1 ENOENT (No such file or directory)
+openat(AT_FDCWD, "/usr/libexec/sudo/tls/libaudit.so.1", O_RDONLY|O_CLOEXEC) = -1 ENOENT (No such file or directory)
+newfstatat(AT_FDCWD, "/usr/libexec/sudo/tls", 0x7fff1500ddb0, 0) = -1 ENOENT (No such file or directory)
+openat(AT_FDCWD, "/usr/libexec/sudo/x86_64/x86_64/libaudit.so.1", O_RDONLY|O_CLOEXEC) = -1 ENOENT (No such file or directory)
+newfstatat(AT_FDCWD, "/usr/libexec/sudo/x86_64/x86_64", 0x7fff1500ddb0, 0) = -1 ENOENT (No such file or directory)
+openat(AT_FDCWD, "/usr/libexec/sudo/x86_64/libaudit.so.1", O_RDONLY|O_CLOEXEC) = -1 ENOENT (No such file or directory)
+newfstatat(AT_FDCWD, "/usr/libexec/sudo/x86_64", 0x7fff1500ddb0, 0) = -1 ENOENT (No such file or directory)
+openat(AT_FDCWD, "/usr/libexec/sudo/x86_64/libaudit.so.1", O_RDONLY|O_CLOEXEC) = -1 ENOENT (No such file or directory)
+newfstatat(AT_FDCWD, "/usr/libexec/sudo/x86_64", 0x7fff1500ddb0, 0) = -1 ENOENT (No such file or directory)
+openat(AT_FDCWD, "/usr/libexec/sudo/libaudit.so.1", O_RDONLY|O_CLOEXEC) = -1 ENOENT (No such file or directory)
+newfstatat(AT_FDCWD, "/usr/libexec/sudo", {st_mode=S_IFDIR|0755, st_size=4096, ...}, 0) = 0
+openat(AT_FDCWD, "/etc/ld.so.cache", O_RDONLY|O_CLOEXEC) = 3
+newfstatat(3, "", {st_mode=S_IFREG|0644, st_size=75603, ...}, AT_EMPTY_PATH) = 0
+mmap(NULL, 75603, PROT_READ, MAP_PRIVATE, 3, 0) = 0x716d1d246000
+close(3)                                = 0
+openat(AT_FDCWD, "/lib/x86_64-linux-gnu/libaudit.so.1", O_RDONLY|O_CLOEXEC) = 3
+read(3, "\177ELF\2\1\1\0\0\0\0\0\0\0\0\0\3\0>\0\1\0\0\0\0\0\0\0\0\0\0\0"..., 832) = 832
+newfstatat(3, "", {st_mode=S_IFREG|0644, st_size=133200, ...}, AT_EMPTY_PATH) = 0
+mmap(NULL, 184496, PROT_READ, MAP_PRIVATE|MAP_DENYWRITE, 3, 0) = 0x716d1d218000
+mmap(0x716d1d21b000, 32768, PROT_READ|PROT_EXEC, MAP_PRIVATE|MAP_FIXED|MAP_DENYWRITE, 3, 0x3000) = 0x716d1d21b000
+mmap(0x716d1d223000, 86016, PROT_READ, MAP_PRIVATE|MAP_FIXED|MAP_DENYWRITE, 3, 0xb000) = 0x716d1d223000
+mmap(0x716d1d238000, 8192, PROT_READ|PROT_WRITE, MAP_PRIVATE|MAP_FIXED|MAP_DENYWRITE, 3, 0x1f000) = 0x716d1d238000
+mmap(0x716d1d23a000, 45232, PROT_READ|PROT_WRITE, MAP_PRIVATE|MAP_FIXED|MAP_ANONYMOUS, -1, 0) = 0x716d1d23a000
+close(3)                                = 0
+openat(AT_FDCWD, "/usr/libexec/sudo/libselinux.so.1", O_RDONLY|O_CLOEXEC) = -1 ENOENT (No such file or directory)
+openat(AT_FDCWD, "/lib/x86_64-linux-gnu/libselinux.so.1", O_RDONLY|O_CLOEXEC) = 3
+read(3, "\177ELF\2\1\1\0\0\0\0\0\0\0\0\0\3\0>\0\1\0\0\0\0\0\0\0\0\0\0\0"..., 832) = 832
+newfstatat(3, "", {st_mode=S_IFREG|0644, st_size=166280, ...}, AT_EMPTY_PATH) = 0
+mmap(NULL, 177672, PROT_READ, MAP_PRIVATE|MAP_DENYWRITE, 3, 0) = 0x716d1d1ec000
+mprotect(0x716d1d1f2000, 139264, PROT_NONE) = 0
+mmap(0x716d1d1f2000, 106496, PROT_READ|PROT_EXEC, MAP_PRIVATE|MAP_FIXED|MAP_DENYWRITE, 3, 0x6000) = 0x716d1d1f2000
+mmap(0x716d1d20c000, 28672, PROT_READ, MAP_PRIVATE|MAP_FIXED|MAP_DENYWRITE, 3, 0x20000) = 0x716d1d20c000
+mmap(0x716d1d214000, 8192, PROT_READ|PROT_WRITE, MAP_PRIVATE|MAP_FIXED|MAP_DENYWRITE, 3, 0x27000) = 0x716d1d214000
+mmap(0x716d1d216000, 5640, PROT_READ|PROT_WRITE, MAP_PRIVATE|MAP_FIXED|MAP_ANONYMOUS, -1, 0) = 0x716d1d216000
+close(3)                                = 0
+openat(AT_FDCWD, "/usr/libexec/sudo/libsudo_util.so.0", O_RDONLY|O_CLOEXEC) = 3
+read(3, "\177ELF\2\1\1\0\0\0\0\0\0\0\0\0\3\0>\0\1\0\0\0\0\0\0\0\0\0\0\0"..., 832) = 832
+newfstatat(3, "", {st_mode=S_IFREG|0644, st_size=134136, ...}, AT_EMPTY_PATH) = 0
+mmap(NULL, 137400, PROT_READ, MAP_PRIVATE|MAP_DENYWRITE, 3, 0) = 0x716d1d1ca000
+mprotect(0x716d1d1d0000, 106496, PROT_NONE) = 0
+mmap(0x716d1d1d0000, 77824, PROT_READ|PROT_EXEC, MAP_PRIVATE|MAP_FIXED|MAP_DENYWRITE, 3, 0x6000) = 0x716d1d1d0000
+mmap(0x716d1d1e3000, 24576, PROT_READ, MAP_PRIVATE|MAP_FIXED|MAP_DENYWRITE, 3, 0x19000) = 0x716d1d1e3000
+mmap(0x716d1d1ea000, 8192, PROT_READ|PROT_WRITE, MAP_PRIVATE|MAP_FIXED|MAP_DENYWRITE, 3, 0x1f000) = 0x716d1d1ea000
+close(3)                                = 0
+openat(AT_FDCWD, "/usr/libexec/sudo/libc.so.6", O_RDONLY|O_CLOEXEC) = -1 ENOENT (No such file or directory)
+openat(AT_FDCWD, "/lib/x86_64-linux-gnu/libc.so.6", O_RDONLY|O_CLOEXEC) = 3
+read(3, "\177ELF\2\1\1\3\0\0\0\0\0\0\0\0\3\0>\0\1\0\0\0P\237\2\0\0\0\0\0"..., 832) = 832
+pread64(3, "\6\0\0\0\4\0\0\0@\0\0\0\0\0\0\0@\0\0\0\0\0\0\0@\0\0\0\0\0\0\0"..., 784, 64) = 784
+pread64(3, "\4\0\0\0 \0\0\0\5\0\0\0GNU\0\2\0\0\300\4\0\0\0\3\0\0\0\0\0\0\0"..., 48, 848) = 48
+pread64(3, "\4\0\0\0\24\0\0\0\3\0\0\0GNU\0I\17\357\204\3$\f\221\2039x\324\224\323\236S"..., 68, 896) = 68
+newfstatat(3, "", {st_mode=S_IFREG|0755, st_size=2220400, ...}, AT_EMPTY_PATH) = 0
+pread64(3, "\6\0\0\0\4\0\0\0@\0\0\0\0\0\0\0@\0\0\0\0\0\0\0@\0\0\0\0\0\0\0"..., 784, 64) = 784
+mmap(NULL, 2264656, PROT_READ, MAP_PRIVATE|MAP_DENYWRITE, 3, 0) = 0x716d1ce00000
+mprotect(0x716d1ce28000, 2023424, PROT_NONE) = 0
+mmap(0x716d1ce28000, 1658880, PROT_READ|PROT_EXEC, MAP_PRIVATE|MAP_FIXED|MAP_DENYWRITE, 3, 0x28000) = 0x716d1ce28000
+mmap(0x716d1cfbd000, 360448, PROT_READ, MAP_PRIVATE|MAP_FIXED|MAP_DENYWRITE, 3, 0x1bd000) = 0x716d1cfbd000
+mmap(0x716d1d016000, 24576, PROT_READ|PROT_WRITE, MAP_PRIVATE|MAP_FIXED|MAP_DENYWRITE, 3, 0x215000) = 0x716d1d016000
+mmap(0x716d1d01c000, 52816, PROT_READ|PROT_WRITE, MAP_PRIVATE|MAP_FIXED|MAP_ANONYMOUS, -1, 0) = 0x716d1d01c000
+close(3)                                = 0
+openat(AT_FDCWD, "/lib/x86_64-linux-gnu/libcap-ng.so.0", O_RDONLY|O_CLOEXEC) = 3
+read(3, "\177ELF\2\1\1\0\0\0\0\0\0\0\0\0\3\0>\0\1\0\0\0\0\0\0\0\0\0\0\0"..., 832) = 832
+newfstatat(3, "", {st_mode=S_IFREG|0644, st_size=27072, ...}, AT_EMPTY_PATH) = 0
+mmap(NULL, 28992, PROT_READ, MAP_PRIVATE|MAP_DENYWRITE, 3, 0) = 0x716d1d1c2000
+mmap(0x716d1d1c4000, 12288, PROT_READ|PROT_EXEC, MAP_PRIVATE|MAP_FIXED|MAP_DENYWRITE, 3, 0x2000) = 0x716d1d1c4000
+mmap(0x716d1d1c7000, 4096, PROT_READ, MAP_PRIVATE|MAP_FIXED|MAP_DENYWRITE, 3, 0x5000) = 0x716d1d1c7000
+mmap(0x716d1d1c8000, 8192, PROT_READ|PROT_WRITE, MAP_PRIVATE|MAP_FIXED|MAP_DENYWRITE, 3, 0x5000) = 0x716d1d1c8000
+close(3)                                = 0
+openat(AT_FDCWD, "/lib/x86_64-linux-gnu/libpcre2-8.so.0", O_RDONLY|O_CLOEXEC) = 3
+read(3, "\177ELF\2\1\1\0\0\0\0\0\0\0\0\0\3\0>\0\1\0\0\0\0\0\0\0\0\0\0\0"..., 832) = 832
+newfstatat(3, "", {st_mode=S_IFREG|0644, st_size=613064, ...}, AT_EMPTY_PATH) = 0
+mmap(NULL, 8192, PROT_READ|PROT_WRITE, MAP_PRIVATE|MAP_ANONYMOUS, -1, 0) = 0x716d1d1c0000
+mmap(NULL, 615184, PROT_READ, MAP_PRIVATE|MAP_DENYWRITE, 3, 0) = 0x716d1d129000
+mmap(0x716d1d12b000, 438272, PROT_READ|PROT_EXEC, MAP_PRIVATE|MAP_FIXED|MAP_DENYWRITE, 3, 0x2000) = 0x716d1d12b000
+mmap(0x716d1d196000, 163840, PROT_READ, MAP_PRIVATE|MAP_FIXED|MAP_DENYWRITE, 3, 0x6d000) = 0x716d1d196000
+mmap(0x716d1d1be000, 8192, PROT_READ|PROT_WRITE, MAP_PRIVATE|MAP_FIXED|MAP_DENYWRITE, 3, 0x94000) = 0x716d1d1be000
+close(3)                                = 0
+mmap(NULL, 12288, PROT_READ|PROT_WRITE, MAP_PRIVATE|MAP_ANONYMOUS, -1, 0) = 0x716d1d126000
+arch_prctl(ARCH_SET_FS, 0x716d1d126840) = 0
+set_tid_address(0x716d1d126b10)         = 127704
+set_robust_list(0x716d1d126b20, 24)     = 0
+rseq(0x716d1d1271e0, 0x20, 0, 0x53053053) = 0
+mprotect(0x716d1d016000, 16384, PROT_READ) = 0
+mprotect(0x716d1d1be000, 4096, PROT_READ) = 0
+mprotect(0x716d1d1c8000, 4096, PROT_READ) = 0
+mprotect(0x716d1d1ea000, 4096, PROT_READ) = 0
+mprotect(0x716d1d214000, 4096, PROT_READ) = 0
+mprotect(0x716d1d238000, 4096, PROT_READ) = 0
+mprotect(0x58cec93d7000, 8192, PROT_READ) = 0
+mprotect(0x716d1d299000, 8192, PROT_READ) = 0
+prlimit64(0, RLIMIT_STACK, NULL, {rlim_cur=8192*1024, rlim_max=RLIM64_INFINITY}) = 0
+munmap(0x716d1d246000, 75603)           = 0
+statfs("/sys/fs/selinux", 0x7fff1500ebd0) = -1 ENOENT (No such file or directory)
+statfs("/selinux", 0x7fff1500ebd0)      = -1 ENOENT (No such file or directory)
+getrandom("\x14\xe6\xcc\x59\xf2\xb0\x0d\xe3", 8, GRND_NONBLOCK) = 8
+brk(NULL)                               = 0x58cecf4fe000
+brk(0x58cecf51f000)                     = 0x58cecf51f000
+openat(AT_FDCWD, "/proc/filesystems", O_RDONLY|O_CLOEXEC) = 3
+newfstatat(3, "", {st_mode=S_IFREG|0444, st_size=0, ...}, AT_EMPTY_PATH) = 0
+read(3, "nodev\tsysfs\nnodev\ttmpfs\nnodev\tbd"..., 1024) = 414
+read(3, "", 1024)                       = 0
+close(3)                                = 0
+access("/etc/selinux/config", F_OK)     = -1 ENOENT (No such file or directory)
+prlimit64(0, RLIMIT_AS, NULL, {rlim_cur=RLIM64_INFINITY, rlim_max=RLIM64_INFINITY}) = 0
+prlimit64(0, RLIMIT_CORE, NULL, {rlim_cur=0, rlim_max=RLIM64_INFINITY}) = 0
+prlimit64(0, RLIMIT_CPU, NULL, {rlim_cur=RLIM64_INFINITY, rlim_max=RLIM64_INFINITY}) = 0
+prlimit64(0, RLIMIT_CPU, {rlim_cur=RLIM64_INFINITY, rlim_max=RLIM64_INFINITY}, NULL) = 0
+prlimit64(0, RLIMIT_DATA, NULL, {rlim_cur=RLIM64_INFINITY, rlim_max=RLIM64_INFINITY}) = 0
+prlimit64(0, RLIMIT_FSIZE, NULL, {rlim_cur=RLIM64_INFINITY, rlim_max=RLIM64_INFINITY}) = 0
+prlimit64(0, RLIMIT_FSIZE, {rlim_cur=RLIM64_INFINITY, rlim_max=RLIM64_INFINITY}, NULL) = 0
+prlimit64(0, RLIMIT_LOCKS, NULL, {rlim_cur=RLIM64_INFINITY, rlim_max=RLIM64_INFINITY}) = 0
+prlimit64(0, RLIMIT_MEMLOCK, NULL, {rlim_cur=3933076*1024, rlim_max=3933076*1024}) = 0
+prlimit64(0, RLIMIT_NOFILE, NULL, {rlim_cur=1024, rlim_max=1024*1024}) = 0
+prlimit64(0, RLIMIT_NPROC, NULL, {rlim_cur=122563, rlim_max=122563}) = 0
+prlimit64(0, RLIMIT_NPROC, {rlim_cur=RLIM64_INFINITY, rlim_max=RLIM64_INFINITY}, NULL) = -1 EPERM (Operation not permitted)
+prlimit64(0, RLIMIT_NPROC, {rlim_cur=122563, rlim_max=122563}, NULL) = 0
+prlimit64(0, RLIMIT_RSS, NULL, {rlim_cur=RLIM64_INFINITY, rlim_max=RLIM64_INFINITY}) = 0
+prlimit64(0, RLIMIT_RSS, {rlim_cur=RLIM64_INFINITY, rlim_max=RLIM64_INFINITY}, NULL) = 0
+prlimit64(0, RLIMIT_STACK, NULL, {rlim_cur=8192*1024, rlim_max=RLIM64_INFINITY}) = 0
+fcntl(0, F_GETFL)                       = 0x2 (flags O_RDWR)
+fcntl(1, F_GETFL)                       = 0x2 (flags O_RDWR)
+fcntl(2, F_GETFL)                       = 0x2 (flags O_RDWR)
+openat(AT_FDCWD, "/usr/lib/locale/locale-archive", O_RDONLY|O_CLOEXEC) = 3
+newfstatat(3, "", {st_mode=S_IFREG|0644, st_size=15751120, ...}, AT_EMPTY_PATH) = 0
+mmap(NULL, 15751120, PROT_READ, MAP_PRIVATE, 3, 0) = 0x716d1be00000
+close(3)                                = 0
+openat(AT_FDCWD, "/etc/localtime", O_RDONLY|O_CLOEXEC) = 3
+newfstatat(3, "", {st_mode=S_IFREG|0644, st_size=309, ...}, AT_EMPTY_PATH) = 0
+newfstatat(3, "", {st_mode=S_IFREG|0644, st_size=309, ...}, AT_EMPTY_PATH) = 0
+read(3, "TZif2\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\4\0\0\0\4\0\0\0\0"..., 4096) = 309
+lseek(3, -176, SEEK_CUR)                = 133
+read(3, "TZif2\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\4\0\0\0\4\0\0\0\0"..., 4096) = 176
+close(3)                                = 0
+newfstatat(AT_FDCWD, "/etc/sudo.conf", {st_mode=S_IFREG|0644, st_size=4573, ...}, 0) = 0
+openat(AT_FDCWD, "/etc/sudo.conf", O_RDONLY) = 3
+newfstatat(3, "", {st_mode=S_IFREG|0644, st_size=4573, ...}, AT_EMPTY_PATH) = 0
+read(3, "#\n# Default /etc/sudo.conf file\n"..., 4096) = 4096
+read(3, "rity[,subsyste@priority]\n#\n# Sud"..., 4096) = 477
+read(3, "", 4096)                       = 0
+close(3)                                = 0
+geteuid()                               = 1000
+prctl(PR_GET_NO_NEW_PRIVS, 0, 0, 0, 0)  = 0
+access("/home/anrin/.local/bin/sudo", X_OK) = -1 ENOENT (No such file or directory)
+access("/home/anrin/.cargo/bin/sudo", X_OK) = -1 ENOENT (No such file or directory)
+access("/home/anrin/.local/bin/sudo", X_OK) = -1 ENOENT (No such file or directory)
+access("/usr/local/sbin/sudo", X_OK)    = -1 ENOENT (No such file or directory)
+access("/usr/local/bin/sudo", X_OK)     = -1 ENOENT (No such file or directory)
+access("/usr/sbin/sudo", X_OK)          = -1 ENOENT (No such file or directory)
+access("/usr/bin/sudo", X_OK)           = 0
+newfstatat(AT_FDCWD, "/usr/bin/sudo", {st_mode=S_IFREG|S_ISUID|0755, st_size=232416, ...}, 0) = 0
+openat(AT_FDCWD, "/usr/share/locale/locale.alias", O_RDONLY|O_CLOEXEC) = 3
+newfstatat(3, "", {st_mode=S_IFREG|0644, st_size=2996, ...}, AT_EMPTY_PATH) = 0
+read(3, "# Locale name alias data base.\n#"..., 4096) = 2996
+read(3, "", 4096)                       = 0
+close(3)                                = 0
+openat(AT_FDCWD, "/usr/share/locale/en_US.UTF-8/LC_MESSAGES/sudo.mo", O_RDONLY) = -1 ENOENT (No such file or directory)
+openat(AT_FDCWD, "/usr/share/locale/en_US.utf8/LC_MESSAGES/sudo.mo", O_RDONLY) = -1 ENOENT (No such file or directory)
+openat(AT_FDCWD, "/usr/share/locale/en_US/LC_MESSAGES/sudo.mo", O_RDONLY) = -1 ENOENT (No such file or directory)
+openat(AT_FDCWD, "/usr/share/locale/en.UTF-8/LC_MESSAGES/sudo.mo", O_RDONLY) = -1 ENOENT (No such file or directory)
+openat(AT_FDCWD, "/usr/share/locale/en.utf8/LC_MESSAGES/sudo.mo", O_RDONLY) = -1 ENOENT (No such file or directory)
+openat(AT_FDCWD, "/usr/share/locale/en/LC_MESSAGES/sudo.mo", O_RDONLY) = -1 ENOENT (No such file or directory)
+openat(AT_FDCWD, "/usr/share/locale-langpack/en_US.UTF-8/LC_MESSAGES/sudo.mo", O_RDONLY) = -1 ENOENT (No such file or directory)
+openat(AT_FDCWD, "/usr/share/locale-langpack/en_US.utf8/LC_MESSAGES/sudo.mo", O_RDONLY) = -1 ENOENT (No such file or directory)
+openat(AT_FDCWD, "/usr/share/locale-langpack/en_US/LC_MESSAGES/sudo.mo", O_RDONLY) = -1 ENOENT (No such file or directory)
+openat(AT_FDCWD, "/usr/share/locale-langpack/en.UTF-8/LC_MESSAGES/sudo.mo", O_RDONLY) = -1 ENOENT (No such file or directory)
+openat(AT_FDCWD, "/usr/share/locale-langpack/en.utf8/LC_MESSAGES/sudo.mo", O_RDONLY) = -1 ENOENT (No such file or directory)
+openat(AT_FDCWD, "/usr/share/locale-langpack/en/LC_MESSAGES/sudo.mo", O_RDONLY) = -1 ENOENT (No such file or directory)
+write(2, "sudo", 4)                     = 4
+write(2, ": ", 2)                       = 2
+write(2, "effective uid is not 0, is /usr/"..., 133) = 133
+ioctl(2, TCGETS, {B38400 opost isig icanon echo ...}) = 0
+write(2, "\r", 1)                       = 1
+write(2, "\n", 1)                       = 1
+exit_group(1)                           = ?
++++ exited with 1 +++

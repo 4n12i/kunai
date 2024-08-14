@@ -43,67 +43,26 @@ unsafe fn try_lsm_security_file_open(ctx: &LsmContext) -> Result<LsmStatus, Prob
     let buf = alloc::alloc_zero::<Path>()?;
     buf.core_resolve(&path, 128)?;
 
-    // bpf_printk!(b"len: %d, depth: %d", buf.len(), buf.depth());
+    // let mut p = Path::default();
+    // let s = "/.dockerenv";
+    // let len = p.copy_from_str(s, Mode::Append).unwrap();
+    // if len == buf.len() {
+    //     // bpf_printk!(b"path len=%d", len);
 
-    let mut p = Path::default();
-    let s = "/.dockerenv";
-    let len = p.copy_from_str(s, Mode::Append).unwrap();
-    if len == buf.len() {
-        // bpf_printk!(b"path len=%d", len);
-
-        for i in 0..100 { // core::mem::size_of::<Path>() {
-            if i == buf.len() {
-                break;
-            }
+    //     for i in 0..100 { // core::mem::size_of::<Path>() {
+    //         if i == buf.len() {
+    //             break;
+    //         }
      
-            let b = buf.get_byte(i)?;
-            bpf_printk!(b"%c", b);
-        }
-    }
-
-    for i in 0..100 { // core::mem::size_of::<Path>() {
-       if i == buf.len() {
-           break;
-       }
-
-       let _b = buf.get_byte(i)?;
-       // bpf_printk!(b"%c", b);
-   }
-
-    if buf.starts_with("/.dockerenv") {
-        bpf_printk!(b"file_open /.dockerenv");
-        // return Ok(LsmStatus::Block)
-    };
-
-    // let path = p.as_ptr();
-
-    // let buf = unsafe {
-    //     let buf_ptr = PATH_BUF.get_ptr_mut(0).ok_or(0).unwrap();
-    //     &mut *buf_ptr
-    // };
-
-    // let f: *const file = ctx.arg(0);
-    // let p = &(*f).f_path;
-    // // let aya_path = unsafe { p as *mut aya_path };
-
-    // let bpf_ptr = unsafe {
-    //     PATH_BUF.get_ptr_mut(0).ok_or(0).unwrap()
-    // };
-    // let b: &mut Path = unsafe { &mut *bpf_ptr };
-    
-    // let len = unsafe { 
-    //     bpf_d_path(
-    //         p as *mut _, 
-    //         buf.path.as_mut_ptr() as *mut c_char, 
-    //         buf.path.len() as u32
-    //     ) 
-    // } as usize;
-
-    // let s = core::str::from_utf8_unchecked(&buf.path[..len]);
-    // if s.starts_with("tmp") {
-    //     bpf_printk!(b"detect");
-    //     return Ok(LsmStatus::Block)
+    //         let b = buf.get_byte(i)?;
+    //         bpf_printk!(b"%c", b);
+    //     }
     // }
+
+    if buf.starts_with("/tmp/test") { // ("/.dockerenv") {
+        bpf_printk!(b"file_open /.dockerenv");
+        return Ok(LsmStatus::Block)
+    };
 
     Ok(LsmStatus::Continue(0))
 }

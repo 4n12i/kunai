@@ -1,0 +1,30 @@
+# name of the rule
+name: dockerenv
+# metadata information
+meta:
+    # tags of the rule
+    tags: [ 'os:linux' ]
+    # MITRE ATT&CK ids
+    # attack: [ T1036 ]
+    # authors of the rule
+    authors: [ 4n12i ]
+    # comments about the rule
+    # comments:
+    #     - tries to cath binaries masquerading kernel threads
+# acts as a pre-filter to speed up engine
+match-on:
+    events:
+        # we match on kunai execve and execve_script event ids
+        kunai: [1]
+matches:
+    # 0x200000 is the flag for KTHREAD
+    # $task_is_kthread: .info.task.flags &= '0x200000'
+    # common kthread names 
+    # $kthread_names: .info.task.name ~= '^(kworker)'
+    $cmd_is_ls_dockerenv: .data.command_line ~= '^(ls).*\s+\/\.dockerenv'
+    # $cmd_is_ls: .data.command_line ~= '^(ls)'
+# if task is NOT a KTHREAD but we have a name that looks like one
+condition: $cmd_is_ls_dockerenv
+# severity is bounded to 10 so it is the maximum score
+severity: 10
+
