@@ -328,3 +328,35 @@ unsafe fn try_vfs_unlink(ctx: &ProbeContext) -> ProbeResult<()> {
 
     Ok(())
 }
+
+#[kprobe(function = "fd_install")]
+pub fn fs_fd_install(ctx: ProbeContext) -> u32 {
+    match unsafe { try_fd_install(&ctx) } {
+        Ok(_) => errors::BPF_PROG_SUCCESS,
+        Err(s) => {
+            error!(&ctx, s);
+            errors::BPF_PROG_FAILURE
+        }
+    }
+}
+
+unsafe fn try_fd_install(ctx: &ProbeContext) -> ProbeResult<()> {
+    let file = co_re::file::from_ptr(ctx.arg(1).ok_or(ProbeError::KProbeArgFailure)?);
+
+    alloc::init()?;
+    let event = alloc::alloc_zero::<OpenEvent>()?;
+
+    ignore_result!(inspect_err!(
+        event.data.path.core_resolve_file(&file, MAX_PATH_DEPTH),
+        |e: &path::Error| warn!(ctx, "failed to resolve filename", (*e).into())
+    ));
+
+    if event.data.path.len() == 1 {
+        return Ok(());
+    }
+
+    event.init_from_current_task(Type::Open)?;
+    pipe_event(ctx, event);
+
+    Ok(())
+}

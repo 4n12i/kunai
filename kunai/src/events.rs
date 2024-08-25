@@ -685,6 +685,18 @@ impl IocGetter for FileRenameData {
     }
 }
 
+def_user_data!(
+    pub struct OpenData {
+        pub path: PathBuf,
+    }
+);
+
+impl IocGetter for OpenData {
+    fn iocs(&mut self) -> Vec<Cow<'_, str>> {
+        vec![self.exe.file.to_string_lossy(), self.path.to_string_lossy()]
+    }
+}
+
 #[derive(Debug, FieldGetter, Serialize, Deserialize)]
 pub struct BpfProgTypeInfo {
     pub id: u32,

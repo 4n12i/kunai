@@ -13,7 +13,7 @@ use kunai::containers::Container;
 use kunai::events::{
     BpfProgLoadData, BpfProgTypeInfo, BpfSocketFilterData, CloneData, ConnectData, DnsQueryData,
     ExecveData, ExitData, FileRenameData, FilterInfo, InitModuleData, KillData, KunaiEvent,
-    MmapExecData, MprotectData, NetworkInfo, PrctlData, RWData, ScanResult, SendDataData,
+    MmapExecData, MprotectData, NetworkInfo, OpenData, PrctlData, RWData, ScanResult, SendDataData,
     SocketInfo, TargetTask, UnlinkData, UserEvent,
 };
 use kunai::info::{AdditionalInfo, StdEventInfo, TaskKey};
@@ -772,6 +772,24 @@ impl EventConsumer {
     }
 
     #[inline]
+    fn open_event(
+        &mut self,
+        info: StdEventInfo,
+        event: &bpf_events::OpenEvent,
+    ) -> UserEvent<OpenData> {
+        let (exe, command_line) = self.get_exe_and_command_line(&info);
+
+        let data = OpenData {
+            ancestors: self.get_ancestors_string(&info),
+            command_line,
+            exe: exe.into(),
+            path: event.data.path.to_path_buf(),
+        };
+
+        UserEvent::new(data, info)
+    }
+
+    #[inline]
     fn bpf_prog_load_event(
         &mut self,
         info: StdEventInfo,
@@ -1322,6 +1340,14 @@ impl EventConsumer {
             Type::FileRename => match event!(enc_event, bpf_events::FileRenameEvent) {
                 Ok(e) => {
                     let mut e = self.file_rename_event(std_info, e);
+                    self.scan_and_print(&mut e);
+                }
+                Err(e) => error!("failed to decode {} event: {:?}", etype, e),
+            },
+
+            Type::Open => match event!(enc_event, bpf_events::OpenEvent) {
+                Ok(e) => {
+                    let mut e = self.open_event(std_info, e);
                     self.scan_and_print(&mut e);
                 }
                 Err(e) => error!("failed to decode {} event: {:?}", etype, e),
@@ -2102,6 +2128,7 @@ impl Command {
                         }
                         Type::FileUnlink => scan_event!(p, UnlinkData),
                         Type::FileRename => scan_event!(p, FileRenameData),
+                        Type::Open => scan_event!(p, OpenData),
                         Type::BpfProgLoad => scan_event!(p, BpfProgLoadData),
                         Type::BpfSocketFilter => scan_event!(p, BpfSocketFilterData),
                         Type::Exit | Type::ExitGroup => scan_event!(p, ExitData),

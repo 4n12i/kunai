@@ -23,3 +23,10 @@ pub struct UnlinkData {
     pub path: Path,
     pub success: bool,
 }
+
+pub type OpenEvent = Event<OpenData>;
+
+#[repr(C)]
+pub struct OpenData {
+    pub path: Path, 
+}
