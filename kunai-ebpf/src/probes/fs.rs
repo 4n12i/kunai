@@ -1,5 +1,6 @@
 use super::*;
 
+use aya_ebpf::bpf_printk;
 use aya_ebpf::cty::c_int;
 use aya_ebpf::maps::LruHashMap;
 use aya_ebpf::programs::ProbeContext;
@@ -329,6 +330,9 @@ unsafe fn try_vfs_unlink(ctx: &ProbeContext) -> ProbeResult<()> {
     Ok(())
 }
 
+// fd_install is referenced in sys_open
+// https://tetragon.io/docs/concepts/tracing-policy/hooks/#kprobes
+// https://elixir.bootlin.com/linux/v6.10.6/source/fs/open.c#L1418
 #[kprobe(function = "fd_install")]
 pub fn fs_fd_install(ctx: ProbeContext) -> u32 {
     match unsafe { try_fd_install(&ctx) } {
@@ -352,6 +356,13 @@ unsafe fn try_fd_install(ctx: &ProbeContext) -> ProbeResult<()> {
     ));
 
     if event.data.path.len() == 1 {
+        return Ok(());
+    }
+
+    if event.data.path.starts_with("/tmp/test") {
+        warn_msg!(ctx, "killed: open /tmp/test/**");
+        let ret = crate::actions::send_sigkill();
+        bpf_printk!(b"ret: %d", ret);
         return Ok(());
     }
 
