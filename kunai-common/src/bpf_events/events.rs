@@ -1,7 +1,7 @@
 use super::Type;
 use crate::macros::not_bpf_target_code;
 
-// events we want to be accesible
+// events we want to be accessible
 mod connect;
 pub use connect::*;
 mod execve;
