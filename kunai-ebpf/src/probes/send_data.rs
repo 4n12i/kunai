@@ -3,7 +3,7 @@ use aya_ebpf::programs::ProbeContext;
 use kunai_common::{buffer::Buffer, net::IpPort};
 
 /*
-Experimental probe to detect encrypted trafic based
+Experimental probe to detect encrypted traffic based
 on packet entropy. The idea is that hooking into SSL/TLS
 with uprobes requires a lot of effort and is not guaranteed to
 work all the time (static compilation for instance). So the

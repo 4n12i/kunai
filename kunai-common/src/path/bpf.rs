@@ -170,7 +170,7 @@ impl Path {
             return Err(Error::BpfProbeReadFailure);
         }
         // len is the size read including NULL byte
-        // len cannot be 0 so it is Ok to substract 1
+        // len cannot be 0 so it is Ok to subtract 1
         self.len = (len - 1) as u32;
         Ok(())
     }

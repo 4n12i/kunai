@@ -10,7 +10,7 @@ static mut MARKED: LruHashMap<u128, bool> = LruHashMap::with_max_entries(0x8000,
 /*
 The idea behind this probe is being able to reconstruct the list of ancestors
 of a process even if we missed its creation via execve. To do so, the first thing
-comming to my mind was to hook the scheduling routine and collect information such
+coming to my mind was to hook the scheduling routine and collect information such
 as the command line and the executable path. However, it seems impossible to reliably
 know the script executed (if any). Exception made to scripts executed from an absolute path,
 which will be contained in argv. For relative scripts we cannot know whether they

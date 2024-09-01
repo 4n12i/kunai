@@ -52,7 +52,7 @@ fn main() -> Result<(), anyhow::Error> {
         Clippy(mut opts) => {
             // preparing for eBPF check
             // build arguments are not propagated by into() method so we need
-            // to set them explicitely
+            // to set them explicitly
             let bpf_check_args = opts.build_args.clone();
             let bpf_build_opt: ebpf::BuildOptions = opts.clone().into();
 
